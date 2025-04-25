@@ -1,218 +1,539 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Parking Area</title>
-  <style>
-    body {
-  font-family: 'Segoe UI', sans-serif;
-  background-image: url('cgc.jpg');
-  background-size: cover;             /* Scale image to cover the whole screen */
-  background-repeat: no-repeat;       /* Prevent tiling */
-  background-position: center center; /* Center the image */
-  margin: 0;
-  /* padding: 10px; */
-  min-height: none;
-  min-width: none;                  /* Ensure full height */
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="parking.css">
+    <style>
+        html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    h1 {
-      text-align: center;   
-      color: #333;
-    }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-image: url('cgc.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            margin: 0;
+            min-height: 100vh;
+        }
 
-    .counter, .controls {
-      text-align: center;
-      font-size: 18px;
-      margin-bottom: 20px;
-      color: #555;
-    }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin: 80px 0 20px;
+        }
 
-    button {
-      padding: 8px 16px;
-      font-size: 16px;
-      background-color: #0d6efd;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
+        .counter, .controls {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #555;
+        }
 
-    button:hover {
-      background-color: #0b5ed7;
-    }
+        .counter {
+            display: inline-block;
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
 
-    .parking-lot {
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-      gap: 20px;
-      padding: 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
+        button {
+            padding: 8px 16px;
+            font-size: 16px;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
 
-    .parking-box {
-      border: 2px solid #000;
-      border-radius: 10px;
-      height: 100px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s ease;
-    }
+        button:hover {
+            background-color: #0b5ed7;
+        }
 
-    .parking-box.available {
-      background-color: #d1e7dd;
-      color: #0f5132;
-      border-color: #0f5132;
-    }
+        .parking-header {
+            text-align: center;
+            margin-bottom: 400px;
+        }
 
-    .parking-box.occupied {
-      background-color: #f8d7da;
-      color: #842029;
-      border-color: #842029;
-    }
+        .parking-lot {
+            position: relative;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
 
-    .parking-box:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
+        .parking-row {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 5px;
+            position: absolute;
+            width: 100%;
+        }
 
-    .slot-id {
-      font-size: 18px;
-      margin-bottom: 5px;
-    }
+        #row-1 { top: -220px; left: -250px; }
+        #row-2 { top: -112px; left: -250px; }
+        #row-3 { top: 120px; left: -250px; }
+        #row-4 { top: 225px; left: -250px; }
 
-    .status {
-      font-size: 14px;
-    }
-    .counter {
-  display: inline-block;
-  background-color: white;
-  padding: 10px 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin: 20px auto;      /* Center horizontally */
-  text-align: center;
-    }
+        .parking-box {
+            border: 2px solid #000;
+            border-radius: 8px;
+            width: 50px;
+            height: 100px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
+        .parking-box.available {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border-color: #0f5132;
+        }
 
-  </style>
+        .parking-box.occupied {
+            background-color: #f8d7da;
+            color: #842029;
+            border-color: #842029;
+        }
+
+        .parking-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        .slot-id {
+            font-size: 16px;
+        }
+
+        .status {
+            font-size: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 30px;
+        }
+
+        .grid-background {
+            position: absolute;
+            top: -280px;
+            left: -420px;
+            width: 650px;
+            height: 560px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            z-index: 1;
+        }
+
+        #navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #333;
+            z-index: 1000;
+        }
+
+        #nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        #nav-links li {
+            margin: 0 15px;
+        }
+
+        #nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        #nav-links a:hover {
+            color: #ddd;
+        }
+
+        #search-btn svg, #search-btn i {
+            vertical-align: middle;
+        }
+
+        #search-input {
+            padding: 5px;
+            margin-left: 10px;
+            border-radius: 4px;
+            border: none;
+            display: none;
+        }
+
+        .menu-icon {
+            position: relative;
+        }
+
+        #menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #444;
+            border-radius: 4px;
+            min-width: 150px;
+            z-index: 1000;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #555;
+        }
+
+        .menu-icon:hover .dropdown-menu {
+            display: block;
+        }
+
+        .fancy-button {
+            display: inline-block;
+            font-family: "Montserrat", Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: #ffffff;
+            position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin: 120px;
+        }
+
+        .fancy-button:before {
+            content: "";
+            display: inline-block;
+            height: 30px;
+            position: absolute;
+            bottom: -5px;
+            left: 10px;
+            right: 10px;
+            z-index: -1;
+            border-radius: 30em;
+            filter: blur(20px) brightness(0.95);
+            transform-style: preserve-3d;
+            transition: all 0.3s ease-out;
+        }
+
+        .fancy-button i {
+            margin-top: -1px;
+            margin-right: 10px;
+            font-size: 1.265em;
+            vertical-align: middle;
+        }
+
+        .fancy-button span {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50em;
+            position: relative;
+            z-index: 2;
+            will-change: transform, filter;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease-out;
+        }
+
+        .fancy-button:focus, .fancy-button:active, .fancy-button:hover {
+            color: #ffffff;
+        }
+
+        .fancy-button:hover span {
+            filter: brightness(1.05) contrast(1.05);
+            transform: scale(0.95);
+        }
+
+        .fancy-button:hover:before {
+            bottom: 0;
+            filter: blur(10px) brightness(0.95);
+        }
+
+        .fancy-button.pop-onhover:before {
+            opacity: 0;
+            bottom: 10px;
+        }
+
+        .fancy-button.pop-onhover:hover:before {
+            bottom: -7px;
+            opacity: 1;
+            filter: blur(20px);
+        }
+
+        .fancy-button.pop-onhover:hover span {
+            transform: scale(1.04);
+        }
+
+        .fancy-button.pop-onhover:hover:active span {
+            filter: brightness(1) contrast(1);
+            transform: scale(1);
+            transition: all 0.15s ease-out;
+        }
+
+        .fancy-button.pop-onhover:hover:active:before {
+            bottom: 0;
+            filter: blur(10px) brightness(0.95);
+            transition: all 0.2s ease-out;
+        }
+
+        .bg-gradient1 span, .bg-gradient1:before {
+            background: linear-gradient(to right, #52A0FD 0%, #00e2fa 80%, #00e2fa 100%);
+        }
+
+        .bg-gradient2 span, .bg-gradient2:before {
+            background: linear-gradient(to right, #44ea76 0%, #39fad7 80%, #39fad7 100%);
+        }
+
+        .fancy-image {
+            max-width: 50px;
+            margin-top: 40px;
+        }
+
+        .fancy-image1 {
+            max-width: 200px;
+            margin-top: 50px;
+        }
+
+        #top-left-image {
+            position: absolute;
+            top: 2px;
+            left: 10px;
+            z-index: 9999;
+            max-width: 180px;
+        }
+
+        div#banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #e85959;
+            width: 100%;
+            z-index: 900;
+        }
+
+        div#banner-content {
+            width: 400px;
+            margin: 0 auto;
+            padding: 40px;
+            border: 0px solid #4e92ff;
+        }
+
+        div#banner2, div#banner3, div#white-box {
+            display: none;
+        }
+
+        .wrapper {
+            margin: 5% auto;
+            text-align: center;
+            transform-style: preserve-3d;
+            perspective: 700px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover, a:focus, a:active {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
+    <nav id="navbar">
+        <ul id="nav-links">
+            <li><a href="error-404-how-to-fix-it-fi.webp">Home</a></li>
+            <li>
+                <button id="search-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 1 1 11 0" />
+                    </svg>
+                </button>
+            </li>
+            <input type="text" id="search-input" placeholder="Search...">
+            <li class="menu-icon">
+                <button id="menu-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                    </svg>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="https://student.cgc.ac.in/ImportantContacts.aspx">Important Contacts</a>
+                    <a href="https://student.cgc.ac.in/StudentMasterInfo.aspx">Profile</a>
+                    <a href="https://student.cgc.ac.in/ChangeStudentPassword.aspx">Change Password</a>
+                    <a href="https://student.cgc.ac.in/StudentTechnicalDetails.aspx">Technical Details</a>
+                    <a href="javascript:__doPostBack('ctl00$lnkLogout','')">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
 
-  <h1>🚗 Parking Area</h1>
-  <div style="text-align: center;">
-    <div class="counter" id="counter">
-      Available: 28 | Occupied: 2
+    <div id="banner">
+        <div id="banner-content"></div>
     </div>
-  </div>
-  
-  <div class="controls">
-    <button onclick="resetAll()">🔁 Reset All</button>
-  </div>
+    <div id="banner2">
+        <div id="banner-content2"></div>
+    </div>
+    <div id="banner3">
+        <div id="banner-content3"></div>
+    </div>
+    <div id="white-box"></div>
+    <img id="top-left-image" src="logo-white cgc logo.png" alt="Top Left Logo">
 
-  <div class="parking-lot" id="parkingLot">
-    <!-- Boxes will be added here dynamically -->
-  </div>
+    <div class="parking-header">
+        <h1>🚗 Parking Area</h1>
+        <div class="counter" id="counter">
+            Available: 28 | Occupied: 2
+        </div>
+        <div class="controls">
+            <button onclick="resetAll()">🔁 Reset All</button>
+        </div>
+    </div>
 
-  <script>
-    const parkingLot = document.getElementById("parkingLot");
-    const counterDisplay = document.getElementById("counter");
-  
-    const TOTAL_SLOTS = 30;
-    let available = 30;
-    let occupied = 0;
-  
-    // Load slot states from localStorage or set default
-    const slotStatus = JSON.parse(localStorage.getItem("slotStatus")) || Array(TOTAL_SLOTS).fill("available");
-  
-    function updateCounter() {
-      available = slotStatus.filter(status => status === "available").length;
-      occupied = TOTAL_SLOTS - available;
-      counterDisplay.innerText = `Available: ${available} | Occupied: ${occupied}`;
-    }
-  
-    function saveToLocalStorage() {
-      localStorage.setItem("slotStatus", JSON.stringify(slotStatus));
-    }
-  
-    function createBox(i) {
-      const box = document.createElement("div");
-      const status = document.createElement("div");
-      const slot = document.createElement("div");
-  
-      box.classList.add("parking-box");
-      slot.classList.add("slot-id");
-      status.classList.add("status");
-  
-      slot.innerText = `Slot ${i}`;
-      status.innerText = slotStatus[i - 1] === "occupied" ? "Occupied" : "Available";
-  
-      box.classList.add(slotStatus[i - 1] === "occupied" ? "occupied" : "available");
-  
-      box.appendChild(slot);
-      box.appendChild(status);
-  
-      box.addEventListener("click", () => {
-        if (box.classList.contains("available")) {
-          box.classList.remove("available");
-          box.classList.add("occupied");
-          status.innerText = "Occupied";
-          slotStatus[i - 1] = "occupied";
-        } else {
-          box.classList.remove("occupied");
-          box.classList.add("available");
-          status.innerText = "Available";
-          slotStatus[i - 1] = "available";
+    <div class="parking-lot" id="parkingLot">
+        <div class="parking-row" id="row-1"></div>
+        <div class="parking-row" id="row-2"></div>
+        <div class="parking-row" id="row-3"></div>
+        <div class="parking-row" id="row-4"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMaps" async defer></script>
+    <script src="parking.js"></script>
+    <script>
+        const parkingLot = document.getElementById("parkingLot");
+        const counterDisplay = document.getElementById("counter");
+
+        const TOTAL_SLOTS = 40;
+        let available = 30;
+        let occupied = 0;
+
+        const slotStatus = JSON.parse(localStorage.getItem("slotStatus")) || Array(TOTAL_SLOTS).fill("available");
+
+        function updateCounter() {
+            available = slotStatus.filter(status => status === "available").length;
+            occupied = TOTAL_SLOTS - available;
+            counterDisplay.innerText = `Available: ${available} | Occupied: ${occupied}`;
         }
-  
-        saveToLocalStorage();
+
+        function saveToLocalStorage() {
+            localStorage.setItem("slotStatus", JSON.stringify(slotStatus));
+        }
+
+        function createBox(i) {
+            const box = document.createElement("div");
+            const status = document.createElement("div");
+            const slot = document.createElement("div");
+
+            box.classList.add("parking-box");
+            slot.classList.add("slot-id");
+            status.classList.add("status");
+
+            slot.innerText = `Slot ${i}`;
+            status.innerText = slotStatus[i - 1] === "occupied" ? "Occupied" : "Available";
+
+            box.classList.add(slotStatus[i - 1] === "occupied" ? "occupied" : "available");
+
+            box.appendChild(slot);
+            box.appendChild(status);
+
+            box.addEventListener("click", () => {
+                if (box.classList.contains("available")) {
+                    box.classList.remove("available");
+                    box.classList.add("occupied");
+                    status.innerText = "Occupied";
+                    slotStatus[i - 1] = "occupied";
+                } else {
+                    box.classList.remove("occupied");
+                    box.classList.add("available");
+                    status.innerText = "Available";
+                    slotStatus[i - 1] = "available";
+                }
+
+                saveToLocalStorage();
+                updateCounter();
+            });
+
+            return box;
+        }
+
+        function resetAll() {
+            for (let i = 0; i < TOTAL_SLOTS; i++) {
+                if (i !== 0) {
+                    slotStatus[i] = "available";
+                }
+            }
+            saveToLocalStorage();
+            renderSlots();
+            updateCounter();
+        }
+
+        function renderSlots() {
+            document.getElementById("row-1").innerHTML = "";
+            document.getElementById("row-2").innerHTML = "";
+            document.getElementById("row-3").innerHTML = "";
+            document.getElementById("row-4").innerHTML = "";
+
+            for (let i = 1; i <= TOTAL_SLOTS; i++) {
+                const rowIndex = Math.ceil(i / 10);
+                const row = document.getElementById(`row-${rowIndex}`);
+                row.appendChild(createBox(i));
+            }
+        }
+
+        renderSlots();
         updateCounter();
-  
-        // Only for Slot 1 — redirect after delay
-        if (i === 1) {
-          setTimeout(() => {
-            window.location.href = "area.html";
-          }, 300);
+
+        document.getElementById('search-btn').addEventListener('click', () => {
+            const searchInput = document.getElementById('search-input');
+            searchInput.style.display = searchInput.style.display === 'none' ? 'inline-block' : 'none';
+        });
+
+        function initMaps() {
+            // Add map initialization code if needed
         }
-      });
-  
-      return box;
-    }
-  
-    function resetAll() {
-      for (let i = 0; i < TOTAL_SLOTS; i++) {
-        if (i !== 0) { // Don't reset Slot 1
-          slotStatus[i] = "available";
-        }
-      }
-      saveToLocalStorage();
-      renderSlots();
-      updateCounter();
-    }
-  
-    function renderSlots() {
-      parkingLot.innerHTML = ""; // Clear existing
-      for (let i = 1; i <= TOTAL_SLOTS; i++) {
-        parkingLot.appendChild(createBox(i));
-      }
-    }
-  
-    // Initial render
-    renderSlots();
-    updateCounter();
-  </script>
-  
-  
-  
-  
+    </script>
 </body>
 </html>

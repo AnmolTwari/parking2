@@ -24,34 +24,30 @@
                 <button id="search-btn">
                     <!-- Search Icon (SVG) -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-search" viewBox="0 0 16 16">
+                        class="bi bi-search" viewBox="0 16 16">
                         <path
                             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                     </svg>
                 </button>
             </li>
-            <button id="search-btn">
-                <i class="fa fa-search"></i> <!-- Search Icon -->
-            </button>
             <input type="text" id="search-input" placeholder="Search..." style="display:none;">
-
 
             <!-- Menu Button (SVG List Icon) -->
             <li class="menu-icon">
                 <button id="menu-btn">
                     <!-- SVG List Icon -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-list" viewBox="0 0 16 16">
+                        class="bi bi-list" viewBox="0 16 16">
                         <path fill-rule="evenodd"
                             d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
                     </svg>
                 </button>
                 <div class="dropdown-menu">
-                    <a href="#">Important Contacts</a>
-                    <a href="#">Profile</a>
-                    <a href="#">Change Password</a>
-                    <a href="#">Technical Details</a>
-                    <a href="#">Logout</a>
+                    <a href="https://student.cgc.ac.in/ImportantContacts.aspx">Important Contacts</a>
+                    <a href="https://student.cgc.ac.in/StudentMasterInfo.aspx">Profile</a>
+                    <a href="https://student.cgc.ac.in/ChangeStudentPassword.aspx">Change Password</a>
+                    <a href="https://student.cgc.ac.in/StudentTechnicalDetails.aspx">Technical Details</a>
+                    <a href="javascript:__doPostBack('ctl00$lnkLogout','')">Logout</a>
                 </div>
             </li>
         </ul>
@@ -60,82 +56,73 @@
     <div id="parking-container">
         <div id="box1" class="clickable-box" onclick="openPopup(this)">
             Parking 1
-            <div class="popup">
+            <div class="popup" style="width: 100%; height: 100%; box-sizing: border-box;">
                 <div class="popup-content">
-                    <strong>East Garage</strong><br>
-                    Status: Full<br>
+                    <strong>Main Parking</strong><br>
+                    Status: Open<br>
                     Available: 0/15 spaces<br>
                     Permit: Faculty/Staff Only<br>
-                    Hours: 24/7<br>
-                    Fee: $2/hour<br>
-                    Notes: Metered parking
+                    Hours: 9:00am - 5:00pm<br>
+                    Notes: Parking1
                 </div>
-                <div class="map-container" id="map2">
-
+                <div class="map-container" id="map1" style="width: 100%; height: 70%; overflow: hidden;">
+                    <img src="Parking 1.png" alt="Parking 1 Map" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
-                <a href="area.html" class="map-button"
-                    onclick="navigateToUrl(event, this.href)" target="_blank">View Map</a>
+                <a href="area.html" class="map-button">View Map</a>
             </div>
         </div>
 
-
         <div id="box2" class="clickable-box" onclick="openPopup(this)">
             Parking 2
-            <div class="popup">
+            <div class="popup" style="width: 100%; height: 100%; box-sizing: border-box;">
                 <div class="popup-content">
-                    <strong>East Garage</strong><br>
-                    Status: Full<br>
+                    <strong>Secondary Parking</strong><br>
+                    Status: Open<br>
                     Available: 0/15 spaces<br>
                     Permit: Faculty/Staff Only<br>
-                    Hours: 24/7<br>
-                    Fee: $2/hour<br>
-                    Notes: Metered parking
+                    Hours: 9:00am - 5:00pm<br>
+                    Notes: Parking2
                 </div>
-                <div class="map-container" id="map2">
-
+                <div class="map-container" id="map2" style="width: 100%; height: 70%; overflow: hidden;">
+                    <img src="Parking 2.png" alt="Parking 2 Map" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
-                <a href="area2.html" class="map-button"
-                    onclick="navigateToUrl(event, this.href)" target="_blank">View Map</a>
+                <a href="area2.html" class="map-button">View Map</a>
             </div>
         </div>
 
         <div id="box3" class="clickable-box" onclick="openPopup(this)">
             Parking 3
-            <div class="popup">
+            <div class="popup" style="width: 100%; height: 100%; box-sizing: border-box;">
                 <div class="popup-content">
-                    <strong>South Lot</strong><br>
+                    <strong>Block 5 Parking</strong><br>
                     Status: Open<br>
                     Available: 18/25 spaces<br>
                     Permit: Open to All<br>
                     Hours: 7:00 AM - 9:00 PM<br>
-                    Fee: $1.50/hour<br>
                     Notes: Visitor-friendly
                 </div>
-                <div class="map-container" id="map3">
-
+                <div class="map-container" id="map3" style="width: 100%; height: 70%; overflow: hidden;">
+                    <img src="Parking 3.png" alt="Parking 3 Map" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
-                <a href="area3.html" class="map-button"
-                    onclick="navigateToUrl(event, this.href)" target="_blank">View Map</a>
+                <a href="area3.html" class="map-button">View Map</a>
             </div>
         </div>
 
         <div id="box4" class="clickable-box" onclick="openPopup(this)">
             Parking 4
-            <div class="popup">
+            <div class="popup" style="width: 100%; height: 100%; box-sizing: border-box;">
                 <div class="popup-content">
-                    <strong>West Annex</strong><br>
+                    <strong>Block 3-4 Parking</strong><br>
                     Status: Limited<br>
-                    Available: 3/10 spaces<br>
-                    Permit: Special Events<br>
-                    Hours: Event-based<br>
-                    Fee: Varies<br>
+                    Available: 3/30 spaces<br>
+                    Permit: Student and Staff<br>
+                    Hours: 9:00am - 5:00pm<br>
                     Notes: Check campus calendar
                 </div>
-                <div class="map-container" id="map4">
-
+                <div class="map-container" id="map4" style="width: 100%; height: 70%; overflow: hidden;">
+                    <img src="Parking 4.png" alt="Parking 4 Map" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
-                <a href="area4.html" class="map-button"
-                    onclick="navigateToUrl(event, this.href)" target="_blank">View Map</a>
+                <a href="area4.html" class="map-button">View Map</a>
             </div>
         </div>
     </div>
@@ -144,8 +131,6 @@
     <div id="banner"></div>
     <img id="top-left-image" src="logo-white cgc logo.png" alt="Top Left Logo">
 
-    <!-- Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMaps" async defer></script>
     <script src="parking.js"></script>
 </body>
 

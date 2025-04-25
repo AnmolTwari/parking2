@@ -4,14 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Attendence</title>
+  <title>Attendance</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     body,
     html {
       margin: 0;
       padding: 0;
       overflow: hidden;
-      /* Prevent scrolling */
       width: 100vw;
       height: 100vh;
       display: flex;
@@ -21,105 +22,187 @@
       background-size: cover;
       background-position: center;
     }
-
-
-    /* Top-left logo */
-    #top-left-image {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 9999;
-      max-width: 180px;
-    }
-
-    div#banner {
-      position: absolute;
-      top: 0px;
-      left: 0;
-      background-color: #e85959;
-      width: 100%;
-    }
-
-    div#banner-content {
-      width: 400px;
-      margin: 0 auto;
-      padding: 40px;
-      border: 0px solid #4e92ff;
-    }
-
-    div#banner2 {
-      position: absolute;
-      top: 85px;
-      /* 40px (padding) + 2px (gap) */
-      left: 370px;
-      background-color: #e85959;
-      width: 75%;
-    }
-
-    div#banner-content2 {
-      width: 90px;
-      margin: 0 auto;
-      padding: 3px;
-      border: 0px solid #4e92ff;
-    }
-
-    div#banner3 {
-      position: absolute;
-      top: 90px;
-      /* 40px (padding) + 2px (gap) */
-      left: 1515px;
-      background-color: #e85959;
-      width: 0.5%;
-    }
-
-    div#banner-content3 {
-      width: 80px;
-      margin: 0 auto;
-      padding: 300px;
-      border: 0px solid #4e92ff;
-    }
-
-    .bg-gradient1 span,
-    .bg-gradient1:before {
-      background: #52A0FD;
-      background: linear-gradient(to right, #52A0FD 0%, #00e2fa 80%, #00e2fa 100%);
-    }
-
-    .bg-gradient2 span,
-    .bg-gradient2:before {
-      background: #44ea76;
-      background: linear-gradient(to right, #44ea76 0%, #39fad7 80%, #39fad7 100%);
-    }
-
-    /* General */
-    .wrapper {
-      margin: 5% auto;
+    h1 {
       text-align: center;
-      transform-style: perserve-3d;
-      perspecive: 700px;
+      color: #333;
+      margin-top: 80px; /* Adjusted for navbar */
     }
 
-    a {
+    .counter, .controls {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    button {
+      padding: 8px 16px;
+      font-size: 16px;
+      background-color: #0d6efd;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #0b5ed7;
+    }
+
+    .parking-lot {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .parking-box {
+      border: 2px solid #000;
+      border-radius: 10px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .parking-box.available {
+      background-color: #d1e7dd;
+      color: #0f5132;
+      border-color: #0f5132;
+    }
+
+    .parking-box.occupied {
+      background-color: #f8d7da;
+      color: #842029;
+      border-color: #842029;
+    }
+
+    .parking-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .slot-id {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .status {
+      font-size: 14px;
+    }
+
+    .counter {
+      display: inline-block;
+      background-color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    /* Navbar styles */
+    #navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #333;
+      z-index: 1000;
+    }
+
+    #nav-links {
+      list-style: none;
+      margin: 0;
+      padding: 10px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    #nav-links li {
+      margin: 0 15px;
+    }
+
+    #nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    #nav-links a:hover {
+      color: #ddd;
+    }
+
+    #search-input {
+      padding: 5px;
+      margin-left: 10px;
+      border-radius: 4px;
+      border: none;
+      display: none;
+    }
+
+    .menu-icon {
+      position: relative;
+    }
+
+    #menu-btn {
+     deploy: none;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: -100px;
+      background-color: #444;
+      border-radius: 4px;
+      min-width: 150px;
+      z-index: 1000;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 10px;
+      color: white;
       text-decoration: none;
     }
 
-    a:hover,
-    a:focus,
-    a:active {
-      text-decoration: none;
+    .dropdown-menu a:hover {
+      background-color: #555;
     }
 
-    /* fancy Button */
+    .menu-icon:hover .dropdown-menu {
+      display: block;
+    }
+
+    /* Fancy button styles */
     .fancy-button {
       display: inline-block;
-      margin: 120px;
-      /* Adjusted margin */
       font-family: "Montserrat", Helvetica, Arial, sans-serif;
       font-size: 25px;
       letter-spacing: 0.03em;
       text-transform: uppercase;
       color: #ffffff;
       position: relative;
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin: 120px;
     }
 
     .fancy-button:before {
@@ -201,42 +284,123 @@
       transition: all 0.2s ease-out;
     }
 
+    .bg-gradient1 span,
+    .bg-gradient1:before {
+      background: #52A0FD;
+      background: linear-gradient(to right, #52A0FD 0%, #00e2fa 80%, #00e2fa 100%);
+    }
+
+    .bg-gradient2 span,
+    .bg-gradient2:before {
+      background: #44ea76;
+      background: linear-gradient(to right, #44ea76 0%, #39fad7 80%, #39fad7 100%);
+    }
+
+    #top-left-image {
+      position: absolute;
+      top: 2px;
+      left: 10px;
+      z-index: 9999;
+      max-width: 180px;
+    }
+
+    #search-btn svg,
+    #search-btn i {
+      vertical-align: middle;
+    }
+
+    div#banner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #e85959;
+      width: 100%;
+      z-index: 900;
+    }
+
+    div#banner-content {
+      width: 400px;
+      margin: 0 auto;
+      padding: 40px;
+      border: 0px solid #4e92ff;
+    }
+
+    div#banner2,
+    div#banner3 {
+      display: none;
+    }
+
+    .wrapper {
+      margin: 5% auto;
+      text-align: center;
+      transform-style: preserve-3d;
+      perspective: 700px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover,
+    a:focus,
+    a:active {
+      text-decoration: none;
+    }
+
     .fancy-image {
       max-width: 50px;
-      /* Adjust image size */
       margin-top: 40px;
-      /* Adjust margin */
     }
 
     .fancy-image1 {
       max-width: 200px;
-      /* Adjust image size */
       margin-top: 50px;
-      /* Adjust margin */
     }
   </style>
 </head>
 
 <body>
+  <!-- Navbar from parking.html -->
+  <nav id="navbar">
+    <ul id="nav-links">
+      <li><a href="#">Home</a></li>
+      <li>
+        <button id="search-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+          </svg>
+        </button>
+      </li>
+      <input type="text" id="search-input" placeholder="Search...">
+      <li class="menu-icon">
+        <button id="menu-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+          </svg>
+        </button>
+        <div class="dropdown-menu">
+          <a href="https://student.cgc.ac.in/ImportantContacts.aspx">Important Contacts</a>
+          <a href="https://student.cgc.ac.in/StudentMasterInfo.aspx">Profile</a>
+          <a href="https://student.cgc.ac.in/ChangeStudentPassword.aspx">Change Password</a>
+          <a href="https://student.cgc.ac.in/StudentTechnicalDetails.aspx">Technical Details</a>
+          <a href="javascript:__doPostBack('ctl00$lnkLogout','')">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
 
-  <a href="t3.html">
-  </a>
+  <!-- Banners and Logo from parking.html -->
   <div id="banner">
-    <div id="banner-content">
-
-    </div>
+    <div id="banner-content"></div>
   </div>
   <div id="banner2">
-    <div id="banner-content2">
-
-    </div>
+    <div id="banner-content2"></div>
   </div>
   <div id="banner3">
-    <div id="banner-content3">
-
-    </div>
+    <div id="banner-content3"></div>
   </div>
   <img id="top-left-image" src="logo-white cgc logo.png" alt="Top Left Logo">
+
   <div class="wrapper">
     <a href="parking table.html" class="fancy-button bg-gradient1">
       <span><i class="fa fa-book"></i> Parking </span>
@@ -244,9 +408,22 @@
     <a href="https://www.cgc.ac.in/">
       <img src="cgclogo.png" alt="Your Image" class="fancy-image1">
     </a>
-    <a href="https://student.cgc.ac.in/Attendance.aspx" class="fancy-button bg-gradient2"><span><i
-          class="fa fa-envelope"></i>Attendance</span></a>
-  </div><!-- /.wrapper -->
+    <a href="https://student.cgc.ac.in/Attendance.aspx" class="fancy-button bg-gradient2">
+      <span><i class="fa fa-envelope"></i>E R P</span>
+    </a>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Navbar search functionality
+    document.getElementById('search-btn').addEventListener('click', () => {
+      const searchInput = document.getElementById('search-input');
+      searchInput.style.display = searchInput.style.display === 'none' ? 'inline-block' : 'none';
+    });
+  </script>
 </body>
 
 </html>
