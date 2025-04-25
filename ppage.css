@@ -1,0 +1,85 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0; /* Light gray background */
+}
+
+.parking-lot {
+    display: grid;
+    grid-template-columns: repeat(10, 60px); /* 10 columns for 30 slots */
+    grid-template-rows: repeat(3, 100px); /* 3 rows */
+    grid-gap: 5px; /* Space between slots */
+    padding: 20px;
+    background-color: #333; /* Dark gray parking lot surface */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    width: 680px; /* 10 slots * 60px + 5px gaps + padding */
+    height: 340px; /* 3 rows * 100px + 5px gaps + padding */
+}
+
+/* Slot styling */
+.slot {
+    width: 60px;
+    height: 100px; /* Taller to resemble parking spaces */
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: #555; /* Default gray for slots */
+}
+
+/* Available and unavailable slots */
+.available {
+    background-color: green;
+}
+
+.unavailable {
+    background-color: red;
+}
+
+/* Aisle simulation (middle column) */
+.slot:nth-child(5n + 6) {
+    background-color: #666; /* Light gray for aisle */
+    border: none; /* No border for aisle */
+}
+
+/* Optional: Add entrance/exit visual */
+.parking-lot::before {
+    content: "Entrance/Exit";
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+#top-left-image {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 9999;
+    max-width: 180px;
+}
+#banner { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    background-color: #e85959; 
+    width: 100%; 
+    height: 70px;
+}
+body {
+    background-image: url("cgc.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}   

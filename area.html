@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Parking Area</title>
+  <style>
+    body {
+  font-family: 'Segoe UI', sans-serif;
+  background-image: url('cgc.jpg');
+  background-size: cover;             /* Scale image to cover the whole screen */
+  background-repeat: no-repeat;       /* Prevent tiling */
+  background-position: center center; /* Center the image */
+  margin: 0;
+  /* padding: 10px; */
+  min-height: none;
+  min-width: none;                  /* Ensure full height */
+}
+
+    h1 {
+      text-align: center;   
+      color: #333;
+    }
+
+    .counter, .controls {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    button {
+      padding: 8px 16px;
+      font-size: 16px;
+      background-color: #0d6efd;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #0b5ed7;
+    }
+
+    .parking-lot {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .parking-box {
+      border: 2px solid #000;
+      border-radius: 10px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .parking-box.available {
+      background-color: #d1e7dd;
+      color: #0f5132;
+      border-color: #0f5132;
+    }
+
+    .parking-box.occupied {
+      background-color: #f8d7da;
+      color: #842029;
+      border-color: #842029;
+    }
+
+    .parking-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .slot-id {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .status {
+      font-size: 14px;
+    }
+    .counter {
+  display: inline-block;
+  background-color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 20px auto;      /* Center horizontally */
+  text-align: center;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <h1>🚗 Parking Area</h1>
+  <div style="text-align: center;">
+    <div class="counter" id="counter">
+      Available: 28 | Occupied: 2
+    </div>
+  </div>
+  
+  <div class="controls">
+    <button onclick="resetAll()">🔁 Reset All</button>
+  </div>
+
+  <div class="parking-lot" id="parkingLot">
+    <!-- Boxes will be added here dynamically -->
+  </div>
+
+  <script>
+    const parkingLot = document.getElementById("parkingLot");
+    const counterDisplay = document.getElementById("counter");
+  
+    const TOTAL_SLOTS = 30;
+    let available = 30;
+    let occupied = 0;
+  
+    // Load slot states from localStorage or set default
+    const slotStatus = JSON.parse(localStorage.getItem("slotStatus")) || Array(TOTAL_SLOTS).fill("available");
+  
+    function updateCounter() {
+      available = slotStatus.filter(status => status === "available").length;
+      occupied = TOTAL_SLOTS - available;
+      counterDisplay.innerText = `Available: ${available} | Occupied: ${occupied}`;
+    }
+  
+    function saveToLocalStorage() {
+      localStorage.setItem("slotStatus", JSON.stringify(slotStatus));
+    }
+  
+    function createBox(i) {
+      const box = document.createElement("div");
+      const status = document.createElement("div");
+      const slot = document.createElement("div");
+  
+      box.classList.add("parking-box");
+      slot.classList.add("slot-id");
+      status.classList.add("status");
+  
+      slot.innerText = `Slot ${i}`;
+      status.innerText = slotStatus[i - 1] === "occupied" ? "Occupied" : "Available";
+  
+      box.classList.add(slotStatus[i - 1] === "occupied" ? "occupied" : "available");
+  
+      box.appendChild(slot);
+      box.appendChild(status);
+  
+      box.addEventListener("click", () => {
+        if (box.classList.contains("available")) {
+          box.classList.remove("available");
+          box.classList.add("occupied");
+          status.innerText = "Occupied";
+          slotStatus[i - 1] = "occupied";
+        } else {
+          box.classList.remove("occupied");
+          box.classList.add("available");
+          status.innerText = "Available";
+          slotStatus[i - 1] = "available";
+        }
+  
+        saveToLocalStorage();
+        updateCounter();
+  
+        // Only for Slot 1 — redirect after delay
+        if (i === 1) {
+          setTimeout(() => {
+            window.location.href = "area.html";
+          }, 300);
+        }
+      });
+  
+      return box;
+    }
+  
+    function resetAll() {
+      for (let i = 0; i < TOTAL_SLOTS; i++) {
+        if (i !== 0) { // Don't reset Slot 1
+          slotStatus[i] = "available";
+        }
+      }
+      saveToLocalStorage();
+      renderSlots();
+      updateCounter();
+    }
+  
+    function renderSlots() {
+      parkingLot.innerHTML = ""; // Clear existing
+      for (let i = 1; i <= TOTAL_SLOTS; i++) {
+        parkingLot.appendChild(createBox(i));
+      }
+    }
+  
+    // Initial render
+    renderSlots();
+    updateCounter();
+  </script>
+  
+  
+  
+  
+</body>
+</html>

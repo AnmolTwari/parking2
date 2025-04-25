@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendence</title>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      /* Prevent scrolling */
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url("cgc.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+
+
+    /* Top-left logo */
+    #top-left-image {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 9999;
+      max-width: 180px;
+    }
+
+    div#banner {
+      position: absolute;
+      top: 0px;
+      left: 0;
+      background-color: #e85959;
+      width: 100%;
+    }
+
+    div#banner-content {
+      width: 400px;
+      margin: 0 auto;
+      padding: 40px;
+      border: 0px solid #4e92ff;
+    }
+
+    div#banner2 {
+      position: absolute;
+      top: 85px;
+      /* 40px (padding) + 2px (gap) */
+      left: 370px;
+      background-color: #e85959;
+      width: 75%;
+    }
+
+    div#banner-content2 {
+      width: 90px;
+      margin: 0 auto;
+      padding: 3px;
+      border: 0px solid #4e92ff;
+    }
+
+    div#banner3 {
+      position: absolute;
+      top: 90px;
+      /* 40px (padding) + 2px (gap) */
+      left: 1515px;
+      background-color: #e85959;
+      width: 0.5%;
+    }
+
+    div#banner-content3 {
+      width: 80px;
+      margin: 0 auto;
+      padding: 300px;
+      border: 0px solid #4e92ff;
+    }
+
+    .bg-gradient1 span,
+    .bg-gradient1:before {
+      background: #52A0FD;
+      background: linear-gradient(to right, #52A0FD 0%, #00e2fa 80%, #00e2fa 100%);
+    }
+
+    .bg-gradient2 span,
+    .bg-gradient2:before {
+      background: #44ea76;
+      background: linear-gradient(to right, #44ea76 0%, #39fad7 80%, #39fad7 100%);
+    }
+
+    /* General */
+    .wrapper {
+      margin: 5% auto;
+      text-align: center;
+      transform-style: perserve-3d;
+      perspecive: 700px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover,
+    a:focus,
+    a:active {
+      text-decoration: none;
+    }
+
+    /* fancy Button */
+    .fancy-button {
+      display: inline-block;
+      margin: 120px;
+      /* Adjusted margin */
+      font-family: "Montserrat", Helvetica, Arial, sans-serif;
+      font-size: 25px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #ffffff;
+      position: relative;
+    }
+
+    .fancy-button:before {
+      content: "";
+      display: inline-block;
+      height: 60px;
+      position: absolute;
+      bottom: -5px;
+      left: 30px;
+      right: 30px;
+      z-index: -1;
+      border-radius: 30em;
+      filter: blur(20px) brightness(0.95);
+      transform-style: preserve-3d;
+      transition: all 0.3s ease-out;
+    }
+
+    .fancy-button i {
+      margin-top: -1px;
+      margin-right: 20px;
+      font-size: 1.265em;
+      vertical-align: middle;
+    }
+
+    .fancy-button span {
+      display: inline-block;
+      padding: 18px 60px;
+      border-radius: 50em;
+      position: relative;
+      z-index: 2;
+      will-change: transform, filter;
+      transform-style: preserve-3d;
+      transition: all 0.3s ease-out;
+    }
+
+    .fancy-button:focus,
+    .fancy-button:active {
+      color: #ffffff;
+    }
+
+    .fancy-button:hover {
+      color: #ffffff;
+    }
+
+    .fancy-button:hover span {
+      filter: brightness(1.05) contrast(1.05);
+      transform: scale(0.95);
+    }
+
+    .fancy-button:hover:before {
+      bottom: 0;
+      filter: blur(10px) brightness(0.95);
+    }
+
+    .fancy-button.pop-onhover:before {
+      opacity: 0;
+      bottom: 10px;
+    }
+
+    .fancy-button.pop-onhover:hover:before {
+      bottom: -7px;
+      opacity: 1;
+      filter: blur(20px);
+    }
+
+    .fancy-button.pop-onhover:hover span {
+      transform: scale(1.04);
+    }
+
+    .fancy-button.pop-onhover:hover:active span {
+      filter: brightness(1) contrast(1);
+      transform: scale(1);
+      transition: all 0.15s ease-out;
+    }
+
+    .fancy-button.pop-onhover:hover:active:before {
+      bottom: 0;
+      filter: blur(10px) brightness(0.95);
+      transition: all 0.2s ease-out;
+    }
+
+    .fancy-image {
+      max-width: 50px;
+      /* Adjust image size */
+      margin-top: 40px;
+      /* Adjust margin */
+    }
+
+    .fancy-image1 {
+      max-width: 200px;
+      /* Adjust image size */
+      margin-top: 50px;
+      /* Adjust margin */
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="t3.html">
+  </a>
+  <div id="banner">
+    <div id="banner-content">
+
+    </div>
+  </div>
+  <div id="banner2">
+    <div id="banner-content2">
+
+    </div>
+  </div>
+  <div id="banner3">
+    <div id="banner-content3">
+
+    </div>
+  </div>
+  <img id="top-left-image" src="logo-white cgc logo.png" alt="Top Left Logo">
+  <div class="wrapper">
+    <a href="parking table.html" class="fancy-button bg-gradient1">
+      <span><i class="fa fa-book"></i> Parking </span>
+    </a>
+    <a href="https://www.cgc.ac.in/">
+      <img src="cgclogo.png" alt="Your Image" class="fancy-image1">
+    </a>
+    <a href="https://student.cgc.ac.in/Attendance.aspx" class="fancy-button bg-gradient2"><span><i
+          class="fa fa-envelope"></i>Attendance</span></a>
+  </div><!-- /.wrapper -->
+</body>
+
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Capture</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="parking.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <ul id="nav-links">
+            <li><a href="#">Home</a></li>
+
+            <!-- Search Button (Bootstrap Icon) -->
+            <li>
+                <button id="search-btn">
+                    <!-- Search Icon (SVG) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg>
+                </button>
+            </li>
+            <button id="search-btn">
+                <i class="fa fa-search"></i> <!-- Search Icon -->
+            </button>
+            <input type="text" id="search-input" placeholder="Search..." style="display:none;">
+
+
+            <!-- Menu Button (SVG List Icon) -->
+            <li class="menu-icon">
+                <button id="menu-btn">
+                    <!-- SVG List Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                    </svg>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="#">Important Contacts</a>
+                    <a href="#">Profile</a>
+                    <a href="#">Change Password</a>
+                    <a href="#">Technical Details</a>
+                    <a href="#">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="parking-container">
+        <div id="box1" class="clickable-box" onclick="openPopup(this)">
+            Parking 1
+            <div class="popup">
+                <div class="popup-content">
+                    <strong>East Garage</strong><br>
+                    Status: Full<br>
+                    Available: 0/15 spaces<br>
+                    Permit: Faculty/Staff Only<br>
+                    Hours: 24/7<br>
+                    Fee: $2/hour<br>
+                    Notes: Metered parking
+                </div>
+                <div class="map-container" id="map2">
+
+                </div>
+                <a href="area.html" class="map-button"
+                    onclick="navigateToUrl(event, this.href)" target="_blank">View Map</a>
+            </div>
+        </div>
+
+
+        <div id="box2" class="clickable-box" onclick="openPopup(this)">
+            Parking 2
+            <div class="popup">
+                <div class="popup-content">
+                    <strong>East Garage</strong><br>
+                    Status: Full<br>
+                    Available: 0/15 spaces<br>
+                    Permit: Faculty/Staff Only<br>
+                    Hours: 24/7<br>
+                    Fee: $2/hour<br>
+                    Notes: Metered parking
+                </div>
+                <div class="map-container" id="map2">
+
+                </div>
+                <a href="area2.html" class="map-button"
+                    onclick="navigateToUrl(event, this.href)" target="_blank">View Map</a>
+            </div>
+        </div>
+
+        <div id="box3" class="clickable-box" onclick="openPopup(this)">
+            Parking 3
+            <div class="popup">
+                <div class="popup-content">
+                    <strong>South Lot</strong><br>
+                    Status: Open<br>
+                    Available: 18/25 spaces<br>
+                    Permit: Open to All<br>
+                    Hours: 7:00 AM - 9:00 PM<br>
+                    Fee: $1.50/hour<br>
+                    Notes: Visitor-friendly
+                </div>
+                <div class="map-container" id="map3">
+
+                </div>
+                <a href="area3.html" class="map-button"
+                    onclick="navigateToUrl(event, this.href)" target="_blank">View Map</a>
+            </div>
+        </div>
+
+        <div id="box4" class="clickable-box" onclick="openPopup(this)">
+            Parking 4
+            <div class="popup">
+                <div class="popup-content">
+                    <strong>West Annex</strong><br>
+                    Status: Limited<br>
+                    Available: 3/10 spaces<br>
+                    Permit: Special Events<br>
+                    Hours: Event-based<br>
+                    Fee: Varies<br>
+                    Notes: Check campus calendar
+                </div>
+                <div class="map-container" id="map4">
+
+                </div>
+                <a href="area4.html" class="map-button"
+                    onclick="navigateToUrl(event, this.href)" target="_blank">View Map</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="white-box"></div>
+    <div id="banner"></div>
+    <img id="top-left-image" src="logo-white cgc logo.png" alt="Top Left Logo">
+
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMaps" async defer></script>
+    <script src="parking.js"></script>
+</body>
+
+</html>
